@@ -41,7 +41,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
     nvm install node
     nvm use node
-    npm install -g webpack
+    npm install -g webpack webpack-cli
   SHELL
 
   # Install Yarn
@@ -71,7 +71,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", name: "configure apache", inline: <<-'SHELL'
 
     # Symlink DocumentRoot o \Vagrant\Publics
-    ln -s /vagrant/public /var/www/html/DocumentRoot
+    ln -s /vagrant/dist /var/www/html/DocumentRoot
 
     sed -i -e "s/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/DocumentRoot/" /etc/apache2/sites-enabled/000-default.conf
     sed -i -e "s/AllowOverride None/AllowOverride All/" /etc/apache2/apache2.conf
